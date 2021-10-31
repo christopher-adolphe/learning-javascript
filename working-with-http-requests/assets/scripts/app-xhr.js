@@ -23,6 +23,9 @@ const sendRequest = (method, url, data) => {
     // into a javascript object
     xhr.responseType = 'json';
 
+    // Using the 'setRequestHeader()' method of the XHR object to set headers of the outgoing
+    // request. The first parameter is the name of the header and the second parameter is the
+    // value
     xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
     // Using the 'send()' method to initiate the request or if the 'data' parameter is set,
