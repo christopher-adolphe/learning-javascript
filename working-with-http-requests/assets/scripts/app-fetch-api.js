@@ -74,7 +74,7 @@ const fetchPosts = async () => {
   posts = [];
 
   try {
-    const response = await sendRequest('GET', `${DOMAIN}/poss`);
+    const response = await sendRequest('GET', `${DOMAIN}/posts`);
 
     posts = [ ...response ];
 
