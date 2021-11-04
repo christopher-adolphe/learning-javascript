@@ -1,0 +1,22 @@
+{
+  "name": "javascript-tooling-workflow",
+  "version": "1.0.0",
+  "description": "Working with Webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christopher-adolphe/learning-javascript.git"
+  },
+  "author": "Christopher Adolphe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christopher-adolphe/learning-javascript/issues"
+  },
+  "homepage": "https://github.com/christopher-adolphe/learning-javascript#readme",
+  "devDependencies": {
+    "eslint": "^8.1.0"
+  }
+}
