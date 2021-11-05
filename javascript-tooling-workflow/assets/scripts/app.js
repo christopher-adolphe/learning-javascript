@@ -19,7 +19,7 @@ class App {
     // });
   }
 
-  static startAnalytics(args) {
+  static startAnalytics() {
     if (this.hasAnalyticsStarted) {
       return;
     }

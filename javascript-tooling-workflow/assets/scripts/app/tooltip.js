@@ -7,17 +7,23 @@ export class Tooltip extends Component {
     this.create(tooltipText);
   }
 
+  // eslint-disable-next-line max-statements
   create(tooltipText) {
     const tooltipElem = document.createElement('div');
     const tooltilTemplateElem = document.getElementById('tooltipTemplate');
-    // Importing the content from the template element
-    const tooltipContent = document.importNode(tooltilTemplateElem.content, true);
+    // importing the content from the template element
+    const tooltipContent = document.importNode(
+      tooltilTemplateElem.content,
+      true
+    );
     const hostElemTopPos = this.hostElem.offsetTop;
     const hostElemLeftPos = this.hostElem.offsetLeft;
     const hostElemHeight = this.hostElem.clientHeight;
     const parentScrollTop = this.hostElem.parentElement.scrollTop;
 
+    // eslint-disable-next-line no-magic-numbers
     const tooltipTopPos = hostElemTopPos + hostElemHeight - parentScrollTop - 10;
+    // eslint-disable-next-line no-magic-numbers
     const tooltipLeftPos = hostElemLeftPos + 20;
 
     tooltipElem.style.position = 'absolute';
@@ -27,7 +33,10 @@ export class Tooltip extends Component {
     // tooltipElem.textContent = tooltipText;
     tooltipContent.querySelector('p').textContent = tooltipText;
     tooltipElem.append(tooltipContent);
-    tooltipElem.addEventListener('click', this.closeTooltip.bind(this));
+    tooltipElem.addEventListener(
+      'click',
+      this.closeTooltip.bind(this)
+    );
 
     this.elem = tooltipElem;
 
