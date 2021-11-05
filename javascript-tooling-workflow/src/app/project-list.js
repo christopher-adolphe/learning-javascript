@@ -2,9 +2,10 @@ import { DOMHelper, doSomethingElse } from '../utility/dom-helper.js';
 import { ProjectItem } from './project-item.js';
 
 export class ProjectList {
-  projects = [];
+  // projects = [];
 
   constructor(type) {
+    this.projects = [];
     this.type = type;
 
     const projectItems = document.querySelectorAll(`#${type}-projects li`);

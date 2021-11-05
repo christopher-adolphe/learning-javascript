@@ -5,11 +5,12 @@ import { DOMHelper, doSomething } from '../utility/dom-helper.js';
 // import { Tooltip } from './tooltip.js';
 
 export class ProjectItem {
-  hasActiveTooltip = false;
+  // hasActiveTooltip = false;
 
   constructor(itemId, switchProjectFn) {
     this.id = itemId;
     this.switchProjectHanlder = switchProjectFn;
+    this.hasActiveTooltip = false;
     this.connectSwitchBtn();
     this.connectInfoBtn();
     this.connectDrag();

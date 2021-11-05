@@ -1,9 +1,12 @@
+/* eslint-disable no-magic-numbers */
 import { ProjectList } from './app/project-list.js';
 
+
 class App {
-  hasAnalyticsStarted = false;
+  // hasAnalyticsStarted = false;
 
   static init() {
+    this.hasAnalyticsStarted = false;
     const activeProjectList = new ProjectList('active');
     const finishedProjectList = new ProjectList('finished');
 
