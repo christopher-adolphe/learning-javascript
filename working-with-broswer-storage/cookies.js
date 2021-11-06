@@ -1,6 +1,5 @@
 const storeBtn = document.getElementById('store-btn');
 const retrieveBtn = document.getElementById('retrieve-btn');
-const clearBtn = document.getElementById('clear-btn');
 
 storeBtn.addEventListener('click', () => {
   const userId = 'u56435085';
