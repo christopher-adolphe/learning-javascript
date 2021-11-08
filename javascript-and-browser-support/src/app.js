@@ -1,8 +1,13 @@
+// import 'core-js/stable';
+// import 'regenerator-runtime/runtime';
+
 const button = document.querySelector('button');
 const paragraph = document.querySelector('p');
 
 button.addEventListener('click', async () => {
   const text = paragraph.textContent;
+  const p1 = new Promise();
+  console.log(p1);
 
   // navigator.clipboard
   //   .writeText(text)
