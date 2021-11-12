@@ -7,6 +7,7 @@ class PlaceFinder {
     const addressFrom = document.querySelector('#place-data form');
     const locateBtn = document.getElementById('locate-btn');
     this.shareBtn = document.getElementById('share-btn');
+    this.shareLinkInputElem = document.getElementById('share-link');
 
     addressFrom.addEventListener('submit', this.findAddressHandler.bind(this));
     locateBtn.addEventListener('click', this.getLocationHandler.bind(this));
@@ -21,10 +22,9 @@ class PlaceFinder {
     }
 
     const { lat, lng } = coordinates;
-    const shareLinkInputElem = document.getElementById('share-link');
 
     this.shareBtn.disabled = false;
-    shareLinkInputElem.value = `${location.origin}/my-place?address=${address}&lat=${lat}&lng=${lng}`;
+    this.shareLinkInputElem.value = `${location.origin}/my-place?address=${address}&lat=${lat}&lng=${lng}`;
   }
 
   async findAddressHandler(event) {
@@ -86,8 +86,21 @@ class PlaceFinder {
     );
   }
 
-  sharePlaceHandler() {
-    console.log('sharePlaceHandler called');
+  async sharePlaceHandler() {
+    const clipboard = navigator.clipboard;
+
+    if (!clipboard) {
+      this.shareLinkInputElem.select();
+      return;
+    }
+
+    try {
+      await clipboard.writeText(this.shareLinkInputElem.value);
+      alert('Address copied to clipboard!!');
+    } catch (error) {
+      this.shareLinkInputElem.select();
+      console.log(error.message);
+    }
   }
 }
 
