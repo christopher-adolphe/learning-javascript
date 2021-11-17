@@ -14,7 +14,7 @@ class PlaceFinder {
     this.shareBtn.addEventListener('click', this.sharePlaceHandler.bind(this));
   }
 
-  selectPlace(coordinates, address) {
+  async selectPlace(coordinates, address) {
     if (this.map) {
       this.map.render(coordinates);
     } else {
@@ -23,8 +23,28 @@ class PlaceFinder {
 
     const { lat, lng } = coordinates;
 
-    this.shareBtn.disabled = false;
-    this.shareLinkInputElem.value = `${location.origin}/my-place?address=${address}&lat=${lat}&lng=${lng}`;
+    // Creating a POST request to save the address and coordinates of the location
+    try {
+      const response = await fetch('http://localhost:3000/add-location', {
+        method: 'POST',
+        body: JSON.stringify({
+          address,
+          lat,
+          lng
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await response.json();
+      const locationId = data.locationId;
+
+      this.shareBtn.disabled = false;
+      // this.shareLinkInputElem.value = `${location.origin}/my-place?address=${address}&lat=${lat}&lng=${lng}`;
+      this.shareLinkInputElem.value = `${location.origin}/my-place?location=${locationId}`;
+    } catch (error) {
+      alert('Sorry, an error occured while saving the address. Please try again.')
+    }
   }
 
   async findAddressHandler(event) {
