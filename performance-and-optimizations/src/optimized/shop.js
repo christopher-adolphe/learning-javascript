@@ -2,6 +2,8 @@ import { products } from './products';
 import { renderProducts } from './rendering';
 
 const addProduct = async (event) => {
+  event.preventDefault();
+  
   try {
     const module = await import('./product-management.js');
 

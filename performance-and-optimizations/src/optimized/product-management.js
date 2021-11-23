@@ -1,4 +1,4 @@
-import { renderProducts, updateProducts } from './rendering';
+import { updateProducts } from './rendering';
 import { products as prods } from './products';
 
 let products = [ ...prods ];
@@ -40,5 +40,6 @@ export function addProduct(event) {
   };
 
   products.unshift(newProduct);
-  renderProducts(products, deleteProduct);
+  
+  updateProducts(newProduct, newProduct.id, deleteProduct, true);
 }
