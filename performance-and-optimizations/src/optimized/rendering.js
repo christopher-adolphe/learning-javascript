@@ -9,6 +9,7 @@ export function renderProducts(products, deleteProductFn) {
     const prodPriceEl = document.createElement('p');
     const prodDeleteButtonEl = document.createElement('button');
 
+    newListEl.id = product.id;
     prodTitleEl.innerHTML = product.title;
     prodPriceEl.innerHTML = product.price;
     prodDeleteButtonEl.innerHTML = 'DELETE';
@@ -24,4 +25,15 @@ export function renderProducts(products, deleteProductFn) {
 
     productListEl.appendChild(newListEl);
   });
+}
+
+export function updateProducts(product, prodId, deleteProductFn, isAdding) {
+  if (isAdding) {
+
+  } else {
+    const productEl = document.getElementById(prodId);
+
+    // productEl.remove();
+    productEl.parentElement.removeChild(productEl);
+  }
 }
