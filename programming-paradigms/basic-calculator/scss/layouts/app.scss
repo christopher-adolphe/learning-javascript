@@ -1,0 +1,78 @@
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to right, $blue-color-1, $pink-color-1);
+}
+
+.calculator {
+  padding: toRem(16px);
+  background-color: $dark-color-1;
+  border-radius: toRem(16px);
+  box-shadow: $box-shadow-2;
+
+  &__grid {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-rows: minmax(toRem(120px), auto) repeat(5, toRem(100px));
+    grid-template-columns: repeat(4, toRem(100px));
+    gap: toRem(10px);
+    width: 100%;
+    max-width: toRem(430px);
+  }
+
+  &__display {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    grid-column: 1 / -1;
+    padding: toRem(16px);
+    background-color: $dark-color-2;
+    border-radius: toRem(8px);
+    border: 1px solid $dark-color-3;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+  &__previous-operand,
+  &__current-operand {
+    color: $neutral-color-2;
+  }
+
+  &__previous-operand {
+    font-size: toRem(18px);
+  }
+
+  &__current-operand {
+    font-size: toRem(24px);
+  }
+
+  &__btn {
+    font-family: $font-family-lato;
+    font-size: toRem(24px);
+    font-weight: 300;
+    background-color: $dark-color-4;
+    color: $neutral-color-2;
+    border: 1px solid $dark-color-3;
+    border-radius: toRem(8px);
+    text-transform: uppercase;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $dark-color-3;
+    }
+
+    &--span-2 {
+      grid-column: span 2;
+    }
+
+    &--highlight {
+      background-color: $red-color-1;
+    }
+  }
+}

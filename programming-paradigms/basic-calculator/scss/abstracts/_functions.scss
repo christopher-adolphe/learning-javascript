@@ -1,0 +1,5 @@
+@function toRem($pixelValue) {
+  $remValue: ($pixelValue / $root-font-size) + rem;
+
+  @return $remValue;
+}

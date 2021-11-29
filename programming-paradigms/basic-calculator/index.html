@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles/styles.css">
+  <script src="./assets/scripts/procedural/app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <div id="calculator" class="calculator">
+      <div class="calculator__grid">
+        <div class="calculator__display">
+          <span class="calculator__previous-operand"></span>
+          <span class="calculator__current-operand"></span>
+        </div>
+
+        <button data-all-clear class="calculator__btn calculator__btn--span-2">Ac</button>
+        <button data-delete class="calculator__btn">Del</button>
+        <button data-operation class="calculator__btn">÷</button>
+
+        <button data-number class="calculator__btn">7</button>
+        <button data-number class="calculator__btn">8</button>
+        <button data-number class="calculator__btn">9</button>
+        <button data-operation class="calculator__btn">*</button>
+
+        <button data-number class="calculator__btn">4</button>
+        <button data-number class="calculator__btn">5</button>
+        <button data-number class="calculator__btn">6</button>
+        <button data-operation class="calculator__btn">-</button>
+
+        <button data-number class="calculator__btn">1</button>
+        <button data-number class="calculator__btn">2</button>
+        <button data-number class="calculator__btn">3</button>
+        <button data-operation class="calculator__btn">+</button>
+
+        <button data-number class="calculator__btn calculator__btn--span-2">0</button>
+        <button data-number class="calculator__btn">.</button>
+        <button data-evaluate class="calculator__btn calculator__btn--highlight">=</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
