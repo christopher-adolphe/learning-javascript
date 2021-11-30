@@ -14,6 +14,25 @@ if (calculatorElem) {
   let operation = null;
   let result = null;
 
+  const formatNumber = (number) => {
+    const stringInput = number.toString();
+    const wholeNumberDigits = parseFloat(stringInput.split('.')[0]);
+    const fractionDigits = stringInput.split('.')[1];
+    let formattedNumber;
+
+    if (isNaN(wholeNumberDigits)) {
+      formattedNumber = '';
+    } else {
+      formattedNumber = wholeNumberDigits.toLocaleString('en', { maximumFractionDigits: 0 });
+    }
+
+    if (fractionDigits) {
+      return `${formattedNumber}.${fractionDigits}`;
+    } else {
+      return formattedNumber;
+    }
+  };
+
   const evaluate = () => {
     const previousValue = parseFloat(previousOperandValue);
     const currentValue = parseFloat(currentOperandValue);
@@ -69,11 +88,11 @@ if (calculatorElem) {
     }
 
     result = evaluate();
-    previousOperandElem.textContent = result;
+    currentOperandElem.textContent = formatNumber(result);
 
-    currentOperandValue = null;
+    previousOperandValue = null;
     operation = null;
-    currentOperandElem.textContent = '';
+    previousOperandElem.textContent = '';
   });
 
   numberBtnList.forEach(numberBtnElem => {
@@ -82,7 +101,7 @@ if (calculatorElem) {
 
       if (currentOperandValue === null || currentOperandValue === '') {
         currentOperandValue = newNumber;
-        currentOperandElem.textContent = currentOperandValue;
+        currentOperandElem.textContent = formatNumber(currentOperandValue);
 
         return;
       }
@@ -92,7 +111,7 @@ if (calculatorElem) {
       }
 
       currentOperandValue = `${currentOperandValue}${newNumber}`;
-      currentOperandElem.textContent = currentOperandValue;
+      currentOperandElem.textContent = formatNumber(currentOperandValue);
     });
   });
 
@@ -101,25 +120,24 @@ if (calculatorElem) {
       const newOperation = event.target.textContent;
 
       if (!currentOperandValue && !result) {
-        console.log('currentOperandValue exist check');
-        console.log('result: ', result);
         return;
       }
 
-      if (currentOperandValue === null && result !== null) {
-        console.log('result is not null check');
-        console.log('result: ', result);
+      if (currentOperandValue !== null && result !== null) {
         previousOperandValue = result;
-        previousOperandElem.textContent = `${result} ${newOperation}`;
+        previousOperandElem.textContent = `${formatNumber(result)} ${newOperation}`;
 
         operation = newOperation;
+        result = null;
+        currentOperandValue = null;
+        currentOperandElem.textContent = '';
 
         return;
       }
 
       if (operation === null) {
         previousOperandValue = currentOperandValue;
-        previousOperandElem.textContent = `${currentOperandValue} ${newOperation}`;
+        previousOperandElem.textContent = `${formatNumber(currentOperandValue)} ${newOperation}`;
 
         operation = newOperation;
         currentOperandValue = null;
@@ -130,9 +148,10 @@ if (calculatorElem) {
 
       if (operation !== null) {
         previousOperandValue = evaluate(newOperation);
-        previousOperandElem.textContent = `${previousOperandValue} ${newOperation}`;
+        previousOperandElem.textContent = `${formatNumber(previousOperandValue)} ${newOperation}`;
 
         operation = newOperation;
+        result = null;
         currentOperandValue = null;
         currentOperandElem.textContent = '';
       }
