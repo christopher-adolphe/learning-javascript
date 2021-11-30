@@ -64,33 +64,94 @@ class Calculator {
 
   updateDisplay() {
     this.currentOperandElem.textContent = this.formatNumber(this.currentOperandValue);
+
+    if (this.operation !== null) {
+      this.previousOperandElem.textContent = `${this.formatNumber(this.currentOperandValue)} ${this.operation}`;
+    } else {
+      this.previousOperandElem.textContent = `${this.formatNumber(this.previousOperandValue)} ${this.operation}`;
+    }
+  }
+
+  computeOperation() {
+    const previousValue = parseFloat(this.previousOperandValue);
+    const currentValue = parseFloat(this.currentOperandValue);
+
+    if (isNaN(previousValue) || isNaN(currentValue)) {
+      return;
+    }
+
+    switch (this.operation) {
+      case '÷':
+        this.result = previousValue / currentValue;
+        return this.result;
+
+      case '*':
+        this.result = previousValue * currentValue;
+        return this.result;
+
+      case '-':
+        this.result = previousValue - currentValue;
+        return this.result;
+
+      case '+':
+        this.result = previousValue + currentValue;
+        return this.result;
+
+      default:
+        return;
+    }
   }
 
   numberHandler(event) {
     const newNumber = event.target.textContent;
 
+    if (newNumber === '.' && this.currentOperandValue?.includes('.')) {
+      return;
+    }
+
     if (this.currentOperandValue === null || this.currentOperandValue === '') {
       this.currentOperandValue = newNumber;
-      this.updateDisplay();
-
-      return;
+    } else {
+      this.currentOperandValue = `${this.currentOperandValue}${newNumber}`;
     }
 
-    if (newNumber === '.' && this.currentOperandValue.includes('.')) {
-      return;
-    }
-
-    this.currentOperandValue = `${this.currentOperandValue}${newNumber}`;
-    this.updateDisplay();
+    this.currentOperandElem.textContent = this.formatNumber(this.currentOperandValue);
   }
 
   operationHandler(event) {
-    const operation = event.target.textContent;
-    console.log('operationHandler was called: ', operation);
+    const newOperation = event.target.textContent;
+
+    if (!this.currentOperandValue && !this.result) {
+      return;
+    }
+
+    if (this.currentOperandValue !== null && this.result !== null) {
+      this.previousOperandValue = this.result;
+      this.previousOperandElem.textContent = `${this.formatNumber(this.result)} ${newOperation}`;
+
+      this.operation = newOperation;
+      this.result = null;
+      this.currentOperandValue = null;
+      this.currentOperandElem.textContent = '';
+
+      return;
+    }
+
+    if (this.operation === null) {
+      this.previousOperandValue = this.currentOperandValue;
+      this.previousOperandElem.textContent = `${this.formatNumber(this.currentOperandValue)} ${newOperation}`;
+    } else {
+      this.previousOperandValue = this.computeOperation();
+      this.previousOperandElem.textContent = `${this.formatNumber(this.previousOperandValue)} ${newOperation}`;
+      this.result = null;
+    }
+
+    this.operation = newOperation;
+    this.currentOperandValue = null;
+    this.currentOperandElem.textContent = '';
   }
 
   clearAllHander() {
-    console.log('clearAllHander was called');
     this.previousOperandValue = null;
     this.currentOperandValue = null;
     this.operation = null;
@@ -101,7 +162,6 @@ class Calculator {
   }
 
   deleteHandler() {
-    console.log('deleteHandler was called');
     if (!this.currentOperandValue) {
       return;
     }
@@ -111,7 +171,15 @@ class Calculator {
   }
 
   evaluateHandler() {
-    console.log('evaluateHandler was called');
+    if (this.previousOperandValue === null && this.operation === null) {
+      return;
+    }
+
+    this.currentOperandElem.textContent = this.formatNumber(this.computeOperation());
+
+    this.previousOperandValue = null;
+    this.operation = null;
+    this.previousOperandElem.textContent = '';
   }
 }
 
