@@ -1,4 +1,4 @@
-// Object Oriented Approach
+// Object-Oriented Approach
 
 class User {
   username;
