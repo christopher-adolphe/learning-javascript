@@ -1,0 +1,38 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box; }
+
+html {
+  min-height: 100%;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  line-height: 1.15;
+  font-size: 16px; }
+
+body {
+  min-height: 100%;
+  font: 1rem/1.5 "lato-light", sans-serif;
+  text-align: left;
+  background-color: white; }
+
+p {
+  margin: 0;
+  color: #1b1a1e; }
+  p:not(:last-child) {
+    margin-bottom: 1rem; }
+
+a {
+  color: #1b1a1e;
+  text-decoration: none; }
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.img-fluid {
+  max-width: 100%;
+  height: auto; }
+
+/*# sourceMappingURL=styles.css.map */

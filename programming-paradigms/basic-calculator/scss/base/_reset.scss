@@ -1,0 +1,49 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// Reset box sizing to border box
+html {
+  min-height: 100%;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  line-height: 1.15;
+  font-size: $root-font-size;
+}
+
+body {
+  min-height: 100%;
+  font: 1rem/1.5 $font-family-lato;
+  font-weight: 300;
+  text-align: left;
+  background-color: $neutral-color-1;
+}
+
+p {
+  margin: 0;
+  color: $dark-color-1;
+
+  &:not(:last-child) {
+    margin-bottom: toRem(16px);
+  }
+}
+
+a {
+  color: $dark-color-1;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
