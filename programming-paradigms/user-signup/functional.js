@@ -1,3 +1,5 @@
+// Functional Approach
+
 const REQUIRED = 'REQUIRED';
 const MIN_LENGTH = 'MIN_LENGTH';
 
