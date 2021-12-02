@@ -74,5 +74,27 @@
     &--highlight {
       background-color: $red-color-1;
     }
+
+    &--power {
+      span {
+        position: relative;
+        display: block;
+        width: toRem(50px);
+        height: toRem(50px);
+        margin: 0 auto;
+        border: toRem(2px) solid $neutral-color-2;
+        border-radius: 50%;
+
+        &::before {
+          position: absolute;
+          top: calc(50% - 15px);
+          left: calc(50% - 1px);
+          content: '';
+          width: toRem(2px);
+          height: toRem(30px);
+          background-color: $neutral-color-2;
+        }
+      }
+    }
   }
 }
