@@ -121,7 +121,7 @@ const signUpHandler = (event) => {
   greetUser(user.username);
 };
 
-const registForm = (formId, formHanlder) => {
+const registerForm = (formId, formHanlder) => {
   const formElem = document.getElementById(formId);
 
   if (!formElem) {
@@ -131,4 +131,4 @@ const registForm = (formId, formHanlder) => {
   formElem.addEventListener('submit', formHanlder);
 }
 
-registForm('user-input', signUpHandler);
+registerForm('user-input', signUpHandler);
