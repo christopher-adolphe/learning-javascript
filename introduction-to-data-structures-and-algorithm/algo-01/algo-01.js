@@ -1,3 +1,6 @@
+// getMinValueV1 has a Linear Time Complexity ===> O(n)
+// BEST CASE: [5] ==> O(1)
+// WORST CASE: [10, 5, 85, -4, 64] ==> O(n)
 const getMinValueV1 = (numbers) => {
   if (!numbers.length) {
     throw new Error('Sorry, cannot get minimum value if array is empty');
@@ -18,6 +21,10 @@ const getMinValueV1 = (numbers) => {
   return currentMinValue;
 }
 
+// getMinValueV2 has a Quadratic Time Complexity T = n * n ===> O(n^2)
+// BEST CASE: [1, 2, 3] ==> O(n^2)
+// WORST CASE: [3, 2, 1] ==> O(n^2)
+// AVERAGE CASE: [?, ?, ?] ==> O(n^2)
 const getMinValueV2 = (numbers) => {
   if (!numbers.length) {
     return 'Sorry, cannot get minimum value if array is empty';
@@ -43,12 +50,6 @@ const getMinValueV2 = (numbers) => {
         // Resetting the correct values of outerElem and innerElem after the swap
         outerElem = sortedArray[i];
         innerElem = sortedArray[j];
-
-        console.log('sortedArray[i]: ', sortedArray[i]);
-        console.log('sortedArray[j]: ', sortedArray[j]);
-
-        console.log('outerElem: ', outerElem);
-        console.log('innerElem: ', innerElem);
       }
     }
   }
@@ -60,14 +61,14 @@ const testArray = [10, 5, 85, -4, 64];
 
 try {
   const resultV1 = getMinValueV1(testArray);
-  console.log('Minimum value is: ', resultV1);
+  console.log('Minimum value V1 is: ', resultV1);
 } catch (error) {
   console.error(error);
 }
 
 try {
   const resultV2 = getMinValueV2(testArray);
-  console.log('Minimum value is: ', resultV2);
+  console.log('Minimum value V2 is: ', resultV2);
 } catch (error) {
   console.error(error);
 }
