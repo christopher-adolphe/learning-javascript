@@ -5,6 +5,25 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web Components</title>
+  <style>
+    :root {
+      --warning-color: #3498db;
+      --highlight-color: #f39c12;
+      --highlight-border-color: #27ae60;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: Helvetica, sans-serif;
+    }
+
+    .highlight {
+      background-color: var(--highlight-color);
+    }
+  </style>
   <script src="./tooltip.js" defer></script>
   <script src="./confirm-link.js" defer></script>
 </head>
@@ -22,11 +41,11 @@
     }, 2000);
   </script> -->
 
-  <p><app-tooltip content="Web components are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML tags to use in web pages and web apps.">Web Components</app-tooltip> are awesome!!</p>
+  <p><app-tooltip content="Web components are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML tags to use in web pages and web apps."><span class="highlight">Web Components</span></app-tooltip> are awesome!!</p>
 
-  <p><app-tooltip>TypeScript</app-tooltip> is awesome!!</p>
+  <p><app-tooltip class="warning">TypeScript</app-tooltip> is awesome!!</p>
 
-  <p><app-tooltip></app-tooltip></p>
+  <p class="danger"><app-tooltip></app-tooltip></p>
 
   <p>This is a <a is="app-confirm-link" href="https:academind.com">custom link</a></p>
 
