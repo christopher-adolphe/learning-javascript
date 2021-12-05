@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web Components</title>
   <script src="./tooltip.js" defer></script>
+  <script src="./confirm-link.js" defer></script>
 </head>
 <body>
   <!-- <uc-modal>
@@ -24,5 +25,13 @@
   <p><app-tooltip content="Web components are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML tags to use in web pages and web apps.">Web Components</app-tooltip> are awesome!!</p>
 
   <p><app-tooltip>TypeScript</app-tooltip> is awesome!!</p>
+
+  <p><app-tooltip></app-tooltip></p>
+
+  <p>This is a <a is="app-confirm-link" href="https:academind.com">custom link</a></p>
+
+  <template id="tooltip-tpl">
+    <slot>Default tooltip slot</slot><span> (?)</span>
+  </template>
 </body>
 </html>

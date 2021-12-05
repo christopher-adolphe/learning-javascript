@@ -1,3 +1,4 @@
+// Building an autonomous custom element
 class Tooltip extends HTMLElement {
   // Element created
   constructor() {
@@ -16,19 +17,45 @@ class Tooltip extends HTMLElement {
     // initializing it a default value
     this._tooltipContent = 'Your tooltip text goes here!!';
 
+
     // Using the `attachShadow()` method to unlock the shadowDOM
     // thus allowing encapsulation of styles as the custom element
     // has it's own shadowDOM tree attached to it
     // NOTE: Any element that should be appended or removed within
     // the custom element should now be done via the `shadowRoot`
     this.attachShadow({ mode: 'open' });
+
+    // Accessing the tooltip template element in the DOM
+    // const template = document.getElementById('tooltip-tpl');
+    // this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+    // Using the innerHTML property to creating the template within the class
+    // Setting the innerHTML property inside the class also allows to add
+    // scoped style to the custom element
+    this.shadowRoot.innerHTML = `
+      <style>
+        div {
+          position: absolute;
+          top: 0px;
+          left: 100%;
+          width: 400px;
+          max-width: 400px;
+          padding: 0.5rem;
+          background-color:#8e44ad;
+          color: #ecf0f1;
+          border-radius: 4px;
+          z-index: 10;
+        }
+      </style>
+      <slot>Default tooltip slot</slot><span> (?)</span>
+    `;
   }
 
   // Using the `connectedCallback()` lifecycle hook
   // to start DOM initialization. This hook allows
-  // us to access element attached to the DOM
+  // us to access/add elements in the DOM
   connectedCallback() {
-    const tooltipIcon = document.createElement('span');
+    const tooltipIcon = this.shadowRoot.querySelector('span');
 
     // Checking if the `content` attribute has been set on the
     // custom element to override the default value of the
@@ -64,18 +91,6 @@ class Tooltip extends HTMLElement {
     this._tooltipContainer = document.createElement('div');
 
     this._tooltipContainer.textContent = this._tooltipContent;
-
-    // Applying some basic styles to the tooltipContainer
-    this._tooltipContainer.style.position = 'absolute';
-    this._tooltipContainer.style.top = '0px';
-    this._tooltipContainer.style.left = '100%';
-    this._tooltipContainer.style.width = '400px';
-    this._tooltipContainer.style.maxWidth = '400px';
-    this._tooltipContainer.style.padding = '0.5rem';
-    this._tooltipContainer.style.backgroundColor ='#8e44ad';
-    this._tooltipContainer.style.color = '#ecf0f1';
-    this._tooltipContainer.style.borderRadius = '4px';
-    this._tooltipContainer.style.zIndex = '10';
 
     this.shadowRoot.appendChild(this._tooltipContainer);
   }
