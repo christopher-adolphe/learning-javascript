@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Components Project</title>
+  <style>
+    :root {
+      --neutral-color-1: #f8f9fa;
+      --neutral-color-2: #e4e4e4;
+      --dark-color-1: #313131;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-family: Helvetica, sans-serif;
+      font-size: 16px;
+      background-color: var(--neutral-color-1);
+      color: var(--dark-color-1);
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 1rem;
+    }
+
+    .content p {
+      margin-bottom: 1rem;
+    }
+
+    .content button {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--neutral-color-2);
+      color: var(--dark-color-1);
+      cursor: pointer;
+    }
+  </style>
+  <script src="./modal.js"></script>
+</head>
+<body>
+  <app-modal>
+    <p>Modal body text goes here.</p>
+  </app-modal>
+
+  <div class="content">
+    <p>Please confirm you choice.</p>
+    <button type="button">Confirm</button>
+  </div>
+
+  <script>
+    const confirmBtnElem = document.querySelector('button');
+    const modal = document.querySelector('app-modal');
+
+    confirmBtnElem.addEventListener('click', () => {
+      modal.setAttribute('opened', '');
+    });
+  </script>
+</body>
+</html>
