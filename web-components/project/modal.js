@@ -16,6 +16,10 @@ class Modal extends HTMLElement {
           pointer-events: all;
         }
 
+        :host([opened]) #modal__container {
+          top: 15vh;
+        }
+
         #modal__backdrop {
           position: fixed;
           top: 0;
@@ -26,11 +30,12 @@ class Modal extends HTMLElement {
           z-index: 1050;
           opacity: 0;
           pointer-events: none;
+          transition: all 0.3s ease-in-out;
         }
 
         #modal__container {
           position: fixed;
-          top: 15vh;
+          top: 5vh;
           left: calc(50% - 300px);
           display: flex;
           flex-direction: column;
@@ -45,6 +50,7 @@ class Modal extends HTMLElement {
           z-index: 1055;
           opacity: 0;
           pointer-events: none;
+          transition: all 0.3s ease-in-out;
         }
 
         #modal__header,
@@ -62,7 +68,7 @@ class Modal extends HTMLElement {
           border-top-right-radius: 4px;
         }
 
-        #modal__title {
+        ::slotted(#modal__title) {
           margin: 0;
           font-size: 1.5rem;
         }
@@ -103,7 +109,7 @@ class Modal extends HTMLElement {
 
       <div id="modal__container">
         <header id="modal__header">
-          <h1 id="modal__title">Modal title</h1>
+          <slot name="modal-title"></slot>
 
           <button type="button" id="modal__btn-close">x</button>
         </header>
@@ -119,10 +125,29 @@ class Modal extends HTMLElement {
       </div>
     `;
 
-    this._isOpen = false;
+    this.isOpen = false;
+
+    const slots = this.shadowRoot.querySelectorAll('slot');
+
+    // Listening to slot content changes
+    slots[1].addEventListener('slotchange', event => {
+      console.dir(slots[1].assignedNodes());
+    });
+
+    const cancelBtnElem = this.shadowRoot.getElementById('modal__btn-cancel');
+    const confirmBtnElem = this.shadowRoot.getElementById('modal__btn-confirm');
+
+    cancelBtnElem.addEventListener('click', this._cancel.bind(this));
+    confirmBtnElem.addEventListener('click', this._confirm.bind(this));
   }
 
-  connectedCallback() {}
+  connectedCallback() {
+    const backdropElem = this.shadowRoot.getElementById('modal__backdrop');
+    const closeBtnElem = this.shadowRoot.getElementById('modal__btn-close');
+
+    backdropElem.addEventListener('click', this._cancel.bind(this));
+    closeBtnElem.addEventListener('click', this._cancel.bind(this));
+  }
 
   disconnecedCallback() {}
 
@@ -133,13 +158,53 @@ class Modal extends HTMLElement {
       return;
     }
 
-    if (attrName === 'opened') {
-      this._isOpen = true;
+    if (this.hasAttribute('opened')) {
+      this.isOpen = true;
     } else {
-      this._isOpen = false;
+      this.isOpen = false;
     }
 
-    console.log('attributeChangedCallback - _isOpen: ', this._isOpen);
+    console.log('attributeChangedCallback - isOpen: ', this.isOpen);
+  }
+
+  // Creating a public `open()` method that can also be used to open
+  // the modal from the external document where the web component is used
+  open() {
+    this.setAttribute('opened', '');
+    this.isOpen = true;
+  }
+
+  close() {
+    if (this.hasAttribute('opened')) {
+      this.removeAttribute('opened');
+      this.isOpen = false;
+    }
+  }
+
+  _cancel(event) {
+    // Creating a custom event to be dispatched when `_cancel()` is called
+    // and passing an object as 2nd argument to configure it
+    // NOTE: The configuration object, the `bubbles` property indicates that
+    // the event can bubble up the shadow DOM and the `composed` property
+    // indicates that this custom event can leave the shadow DOM and be listened
+    // to in the light DOM
+    const cancelEvent = new Event('cancel', { bubbles: true, composed: true });
+
+    // Using the target to dispatch the custom event
+    event.target.dispatchEvent(cancelEvent);
+
+    this.close();
+  }
+
+  _confirm()  {
+    const confirmEvent = new Event('confirm');
+
+    // A shorter alternative to dispatch a custom event is to dispatch it using
+    // the `dispatchEvent()` method on the web component itself. This way no
+    // configuration is required when creating the custom event
+    this.dispatchEvent(confirmEvent);
+
+    this.close();
   }
 }
 
