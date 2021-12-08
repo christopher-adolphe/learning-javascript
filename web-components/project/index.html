@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Components Project</title>
+  <style>
+    :root {
+      --neutral-color-1: #f8f9fa;
+      --neutral-color-2: #e4e4e4;
+      --dark-color-1: #313131;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-family: Helvetica, sans-serif;
+      font-size: 16px;
+      background-color: var(--neutral-color-1);
+      color: var(--dark-color-1);
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      padding: 1rem;
+    }
+
+    .content p {
+      margin-bottom: 1rem;
+    }
+
+    .content button {
+      max-width: 80px;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--neutral-color-2);
+      color: var(--dark-color-1);
+      cursor: pointer;
+    }
+
+    hr {
+      margin: 1.5rem 0;
+    }
+  </style>
+  <script src="./modal.js"></script>
+</head>
+<body>
+  <app-modal id="default-modal">
+    <h1 id="modal__title" slot="modal-title">Modal title</h1>
+
+    <p>Modal body text goes here.</p>
+  </app-modal>
+
+  <app-modal id="hello-modal" opened>
+    <h1 id="modal__title" slot="modal-title">Hello December</h1>
+
+    <p>Christmas is coming!!!</p>
+  </app-modal>
+
+  <div class="content">
+    <p>Please confirm you choice.</p>
+    <button type="button" id="btn-confirm">Confirm</button>
+
+    <hr/>
+
+    <p>Hello modal</p>
+    <button type="button" id="btn-open-it">Open it</button>
+  </div>
+
+  <script>
+    const confirmBtnElem = document.getElementById('btn-confirm');
+    const modalElem = document.getElementById('default-modal');
+
+    const openItBtnElem = document.getElementById('btn-open-it');
+    const helloModalElem = document.getElementById('hello-modal');
+
+    confirmBtnElem.addEventListener('click', () => {
+      // modal.setAttribute('opened', '');
+      modalElem.open();
+    });
+
+    openItBtnElem.addEventListener('click', () => {
+      helloModalElem.open();
+    });
+
+    // Listening to custom events on the web component
+    modalElem.addEventListener('cancel', () => {
+      console.log('Modal cancel');
+    });
+
+    modalElem.addEventListener('confirm', () => {
+      console.log('Modal confirmed!!');
+    });
+  </script>
+</body>
+</html>
